@@ -6,25 +6,20 @@
 
 <%= link_to 'New Picture', new_picture_path %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Image</th>
-      <th>Content</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @pictures.each do |picture| %>
-      <tr>
-        <td><%= picture.image %></td>
-        <td><%= picture.content %></td>
-        <td><%= link_to 'Show', picture %></td>
-        <td><%= link_to 'Edit', edit_picture_path(picture) %></td>
-        <td><%= link_to 'Destroy', picture, method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<ul>
+  <% @pictures.each do |picture| %>
+    <li>
+      <p><span>Image:<br><%= picture.image %></span></p>
+      <p><span>Content:<br><%= picture.content %></span></p>
+      <p><span>User:<br><%= picture.user.name %></span></p>
+      <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default"><%= link_to "Show", picture_path(picture.id) %></button>
+      <% if picture.user_id == current_user.id %>
+        <button type="button" class="btn btn-default"><%= link_to "Edit", edit_picture_path(picture.id) %></button>
+        <button type="button" class="btn btn-default"><%= link_to "Destroy", picture_path(picture.id), method: :delete, data: {confirm: '本当に削除していいですか？'} %></button>
+      <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul> 
 
