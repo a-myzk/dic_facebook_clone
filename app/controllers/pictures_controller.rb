@@ -12,13 +12,17 @@ class PicturesController < ApplicationController
   end
   def create
     @picture = Picture.new(picture_params)
-    respond_to do |format|
-      if @picture.save
-        format.html { redirect_to @picture, notice: "Picture was successfully created." }
-        format.json { render :show, status: :created, location: @picture }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @picture.errors, status: :unprocessable_entity }
+    if params[:back]
+      render :new
+    else
+      respond_to do |format|
+        if @picture.save
+          format.html { redirect_to @picture, notice: "Picture was successfully created." }
+          format.json { render :show, status: :created, location: @picture }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @picture.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -39,6 +43,16 @@ class PicturesController < ApplicationController
       format.html { redirect_to pictures_url, notice: "Picture was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+  def confirm
+    @picture = Picture.new(picture_params)
+  #  @picture = current_user.pictures.build(picture_params)
+    render :new if @picture.invalid?
+  #  if @task.valid?
+  #    render :action => 'confirm'
+  #  else
+  #    render :action => request.post? ? 'new' : 'edit'
+  #  end
   end
   private
     def set_picture

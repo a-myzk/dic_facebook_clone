@@ -1,0 +1,18 @@
+<h3>Send the following information.</h3>
+<%= form_with(model: @picture, local: true) do |form| %>
+  <%= form.hidden_field :image %>
+  <%= form.hidden_field :image_cache %>
+  <%= form.hidden_field :content %>
+  <p class="actions">
+    <strong>Image:</strong>
+    <% if @picture.image.present? %>
+      <%= image_tag @picture.image.url %>
+    <% end %>
+  </p>
+  <p class="actions">
+    <strong>Content:</strong>
+    <%= @picture.content %>
+  </p>
+  <%= form.submit %>
+  <%= form.submit "Back", name: 'back' %>
+<% end %>
