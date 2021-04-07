@@ -6,13 +6,15 @@ class PicturesController < ApplicationController
   def show
   end
   def new
-    @picture = Picture.new
+    if params[:back]
+      @picture = Picture.new(picture_params)
+    else
+      @picture = Picture.new
+    end
   end
   def edit
   end
   def create
-  # @picture = Picture.new(picture_params)
-  # @picture.user_id = current_user.id
     @picture = current_user.pictures.build(picture_params)
     if params[:back]
       render :new
@@ -47,15 +49,8 @@ class PicturesController < ApplicationController
     end
   end
   def confirm
-  # @picture = Picture.new(picture_params)
-  # @picture.user_id = current_user.id
     @picture = current_user.pictures.build(picture_params)
     render :new if @picture.invalid?
-  #  if @task.valid?
-  #    render :action => 'confirm'
-  #  else
-  #    render :action => request.post? ? 'new' : 'edit'
-  #  end
   end
   private
     def set_picture

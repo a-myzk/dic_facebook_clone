@@ -1,25 +1,22 @@
-<p id="notice"><%= notice %></p>
-
-<h1>FaceLook</h1>
-
+<p><%= link_to 'New Picture', new_picture_path %></p>
 <br>
-
-<%= link_to 'New Picture', new_picture_path %>
-
-<ul>
+<div class="table-responsive">
   <% @pictures.each do |picture| %>
-    <li>
-      <p><span>Image:<br><%= picture.image %></span></p>
-      <p><span>Content:<br><%= picture.content %></span></p>
-      <p><span>User:<br><%= picture.user.name %></span></p>
-      <div class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-default"><%= link_to "Show", picture_path(picture.id) %></button>
-      <% if picture.user_id == current_user.id %>
-        <button type="button" class="btn btn-default"><%= link_to "Edit", edit_picture_path(picture.id) %></button>
-        <button type="button" class="btn btn-default"><%= link_to "Destroy", picture_path(picture.id), method: :delete, data: {confirm: '本当に削除していいですか？'} %></button>
-      <% end %>
-      </div>
-    </li>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class="col-md-4"><span>Image:<br><%= image_tag picture.image.url %></span></td>
+          <td class="col-md-4"><span>Content:<br><%= picture.content %></span></td>
+          <td class="col-md-4"><span>User:<br><%= picture.user.name %></span></td>
+        </tr>
+          <td class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default"><%= link_to "Show", picture_path(picture.id) %></button>
+          <% if picture.user_id == current_user.id %>
+            <button type="button" class="btn btn-default"><%= link_to "Edit", edit_picture_path(picture.id) %></button>
+            <button type="button" class="btn btn-default"><%= link_to "Destroy", picture_path(picture.id), method: :delete, data: {confirm: '本当に削除していいですか？'} %></button>
+          <% end %>
+          </td>
+      </tbody>
+    </table>
   <% end %>
-</ul> 
-
+</div> 
