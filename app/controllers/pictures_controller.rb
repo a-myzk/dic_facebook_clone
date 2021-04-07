@@ -53,10 +53,10 @@ class PicturesController < ApplicationController
     render :new if @picture.invalid?
   end
   private
-    def set_picture
-      @picture = Picture.find(params[:id])
-    end
-    def picture_params
-      params.require(:picture).permit(:content, :image, :image_cache)
-    end
+  def set_picture
+    @picture = Picture.find(params[:id])
+  end
+  def picture_params
+    params.require(:picture).permit(:content, :image, :image_cache)
+  end
 end
